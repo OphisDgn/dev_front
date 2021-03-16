@@ -1,8 +1,10 @@
 <template>
   <header>
     <div id="nav">
-      <router-link to="/">Accueil</router-link> |
-      <router-link to="/about">About</router-link>
+      <router-link to="/">Accueil</router-link> --
+      <router-link to="/about">About</router-link> --
+      <router-link to="/geographic">Geographic view</router-link> --
+      <router-link to="/graphic">Graphic</router-link>
     </div>
   </header>
   <router-view/>
@@ -22,7 +24,7 @@ header {
 }
 
 #nav {
-  padding: 30px;
+  padding: 20px;
 }
 
 #nav a {

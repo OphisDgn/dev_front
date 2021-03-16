@@ -6,5 +6,5 @@ export default {
 </script>
 
 <template>
-	<a :href="url">{{ text }}</a> 
+	<a :href="url">{{ text }}</a>
 </template>

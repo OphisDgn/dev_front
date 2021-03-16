@@ -1,7 +1,7 @@
 <template>
   <footer>
     <div class="copyright">
-        &copy; LIEUTAUD Céline 2021
+        &copy; LIEUTAUD Céline - 2021
     </div>
   </footer>
 </template>
@@ -14,5 +14,6 @@ footer {
 }
 .copyright {
     text-align: center;
+    padding: 16px;
 }
 </style>

@@ -57,7 +57,7 @@ export default {
         funSearch() {
             let t = document.getElementsByClassName('searchInput')[0].value;
             let tb = document.getElementsByClassName('tableUsersBody')[0].children;
-
+            
             for (var i = 0; i<tb.length;i++) {
                 if (tb[i].textContent.toUpperCase().indexOf(t.toUpperCase()) == -1 && t.toUpperCase() != "" && t.toUpperCase() != null ) {
                     tb[i].css.display = "none";

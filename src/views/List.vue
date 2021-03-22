@@ -56,7 +56,6 @@ export default {
             list: []
         }
     },
-    
     methods: {
         funSearch: function () {
             let t = $('.searchInput')[0].val();

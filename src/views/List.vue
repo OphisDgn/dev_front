@@ -45,16 +45,17 @@
 
 <script>
 
-import axios from 'axios'
 import $ from 'jquery'
 
 
 export default {
     name: 'List',
-    data() {
-        return {
-            list: []
-        }
+    mounted() {
+        fetch("https://run.mocky.io/v3/70e5b0ad-7112-41c5-853e-b382a39e65b7")
+        .then(response => response.json())
+        .then(data => {
+            this.list = data.people;
+        })
     },
     methods: {
         funSearch: function () {

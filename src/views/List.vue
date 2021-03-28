@@ -25,7 +25,7 @@
             </tr>
         </thead>
         <tbody class="tableUsersBody">
-            <tr v-for="user in list" :key="user.ID">
+            <tr v-for="user in navigation" v-bind:key="user.ID">
                 <td style="display: none;">{{ user.id }}</td>
                 <td>{{ user.gender == 'Female'? 'F' : 'M' }}</td>
                 <td>{{ user.lastname }}</td>
@@ -38,38 +38,66 @@
                 <td>{{ user.preferences.favorite_fruit }}</td>
                 <td>{{ user.preferences.favorite_color }}</td>
                 <td>{{ user.preferences.favorite_movie }}</td>
+                <td><a class="btn btn-outline-green" v-on:click="update">Modifier</a></td>
             </tr>
         </tbody>
     </table>
+    <!-- PAGNINATION -->
+    <div class="rowCol">
+        <div class="colLeft"></div>
+        <div class="colMiddle">
+            <div class="naviLeft navi">
+                <span>
+                    <a class="" style="text-decoration: none;" v-on:click="next">Précédent</a>
+                </span>
+            </div>
+            <div class="naviCenter navi">
+                <span>{{ page_current }}</span>
+            </div>
+            <div class="naviRight navi">
+                <span>
+                    <a class="" style="text-decoration: none;" v-on:click="next">Suivant</a>
+                </span>
+            </div>
+        </div>
+        <div class="colRight"></div>
+    </div>
 </template>
 
 <script>
-
-import $ from 'jquery'
-
+import { mapState } from 'vuex';
 
 export default {
     name: 'List',
-    mounted() {
-        fetch("https://run.mocky.io/v3/70e5b0ad-7112-41c5-853e-b382a39e65b7")
-        .then(response => response.json())
-        .then(data => {
-            this.list = data.people;
-        })
+    data() {
+        return {
+            wordSrch: '',
+            nbPage: '10',
+            page_current: 1
+        }
+    },
+    computed: {
+        navigation() {
+            return this.peoples.filter(people => {
+                return people.lastname.toUpperCase().includes(this.wordSrch.toUpperCase());
+            });
+        },
+        ...mapState(['peoples']),
     },
     methods: {
-        funSearch: function () {
-            let t = $('.searchInput')[0].val();
-            let tb = $('.tableUsersBody')[0].children;
-            
-            for (var i = 0; i<tb.length;i++) {
-                if (tb[i].textContent.toUpperCase().indexOf(t.toUpperCase()) == -1 && t.toUpperCase() != "" && t.toUpperCase() != null ) {
-                    tb[i].css.display = "none";
-                }
-                else {
-                    tb[i].css.display = "table";
-                }
+        prev: function(){
+            if (this.page_current > 1) {
+                this.page_current -= 1;
             }
+        },
+        next: function() {
+            let nb = this.page_current * this.nbPage;
+            if (nb < this.peoples.length) {
+                this.page_current += 1;
+            }
+        },
+        update: function() {
+            console.log("click on update button");
         }
     }
 }
@@ -115,5 +143,33 @@ export default {
     height: 22px;
     margin: 0 9px;
     width: 22px;
+}
+.btn-outline-green {
+    color: #28a745;
+    background-color: transparent;
+    border: 1px solid #28a745;
+    cursor: pointer;
+    padding: 5px;
+}
+.btn-outline-green:hover {
+    color: #fff;
+    background-color: #28a745;
+    border-color: #28a745;
+    text-decoration: none;
+}
+
+.rowCol {
+    margin: 20px;
+}
+.navi {
+    display: inline;
+}
+.naviCenter {
+    margin: 0 30px;
+}
+.navi span {
+    padding: 10px;
+    background: #75534da1;
+    color: white;
 }
 </style>
